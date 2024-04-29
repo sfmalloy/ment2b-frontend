@@ -72,7 +72,7 @@ export default function Onboard() {
         <Grid item xs={4}>
           <FormControl fullWidth>
             <InputLabel id='subdivision'>Subdivision</InputLabel>
-            <Select defaultValue={'RETAIL'} name='subdiv' labelId='subdivision' label='Subdivision'>
+            <Select name='subdiv' labelId='subdivision' label='Subdivision'>
               <MenuItem value={'RETAIL'}>RETAIL</MenuItem>
               <MenuItem value={'GIFS'}>GIFS</MenuItem>
               <MenuItem value={'INST'}>INST</MenuItem>
@@ -91,12 +91,12 @@ export default function Onboard() {
           <FormControl fullWidth>
             <InputLabel id='grade'>Grade Level</InputLabel>
             <Select
-              defaultValue={'technical_1'}
               name='grade'
               labelId='grade'
               label='Grade Level'
               MenuProps={selectMenuProps}
             >
+              <MenuItem value={''}></MenuItem>
               <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
               <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
               <MenuItem value={'corporate_3'}>Corporate 3</MenuItem>
