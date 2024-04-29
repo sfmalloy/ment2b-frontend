@@ -154,7 +154,7 @@ export default function Onboard() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={9}s/>
+        <Grid item xs={9}/>
         <Grid item xs={3} mb={2}>
           <Button
             type='submit'
