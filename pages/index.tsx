@@ -18,10 +18,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (cookies.size > 0 && !cookies.get('ment2b_session')) {
-      console.log('hi there')
-    } else {
+    if (cookies.size > 0 && !cookies.get('ment2b_session') || cookies.size === 0) {
       router.replace('/login');
+    } else {
+      console.log('not done yet :)');
     }
   }, [cookies]);
 
