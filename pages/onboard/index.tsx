@@ -1,5 +1,5 @@
 import SkillSet from '@/components/SkillSet';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 const selectMenuProps = {
@@ -15,6 +15,7 @@ const selectMenuProps = {
 export default function Onboard() {
   const [skills, setSkills] = useState<string[]>([]);
   const [mentorGrades, setMentorGrades] = useState<string[]>([]);
+  const [openToMentor, setOpenToMentor] = useState(false);
 
   return (
     <form onSubmit={(e) => {
@@ -154,7 +155,19 @@ export default function Onboard() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={9}/>
+        <Grid item xs={9}>
+          <FormControl>
+            <FormControlLabel
+              name='openToMentor'
+              control={
+                <Checkbox
+                  onChange={(e) => setOpenToMentor(e.target.checked)}
+                />
+              }
+              label='Are you open to being a mentor?'
+            />
+          </FormControl>
+        </Grid>
         <Grid item xs={3} mb={2}>
           <Button
             type='submit'
