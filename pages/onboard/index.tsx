@@ -1,9 +1,20 @@
 import SkillSet from '@/components/SkillSet';
-import { Box, Button, FormControl, Grid, InputLabel, List, ListItem, ListItemButton, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
+
+const selectMenuProps = {
+  slotProps: {
+    paper: {
+      sx: {
+        maxHeight: 200
+      }
+    }
+  }
+}
 
 export default function Onboard() {
   const [skills, setSkills] = useState<string[]>([]);
+  const [mentorGrades, setMentorGrades] = useState<string[]>([]);
 
   return (
     <form onSubmit={(e) => {
@@ -14,7 +25,10 @@ export default function Onboard() {
         <Grid item xs={12}>
           <Typography variant='h4'>Sign Up</Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
+          <Typography>Personal Information</Typography>
+        </Grid>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             label='Email'
@@ -22,7 +36,7 @@ export default function Onboard() {
             name='email'
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             label='Username'
@@ -30,8 +44,7 @@ export default function Onboard() {
             name='uid'
           />
         </Grid>
-        <Grid item xs={4} />
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             label='First Name'
@@ -39,7 +52,7 @@ export default function Onboard() {
             name='first_name'
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             label='Last Name'
@@ -47,7 +60,6 @@ export default function Onboard() {
             name='last_name'
           />
         </Grid>
-        <Grid item xs={4} />
         <Grid item xs={4}>
           <TextField
             fullWidth
@@ -59,7 +71,7 @@ export default function Onboard() {
         <Grid item xs={4}>
           <FormControl fullWidth>
             <InputLabel id='subdivision'>Subdivision</InputLabel>
-            <Select name='subdiv' labelId='subdivision' label='Subdivision'>
+            <Select defaultValue={'RETAIL'} name='subdiv' labelId='subdivision' label='Subdivision'>
               <MenuItem value={'RETAIL'}>RETAIL</MenuItem>
               <MenuItem value={'GIFS'}>GIFS</MenuItem>
               <MenuItem value={'INST'}>INST</MenuItem>
@@ -77,7 +89,13 @@ export default function Onboard() {
         <Grid item xs={4}>
           <FormControl fullWidth>
             <InputLabel id='grade'>Grade Level</InputLabel>
-            <Select name='grade' labelId='grade' label='Grade Level'>
+            <Select
+              defaultValue={'technical_1'}
+              name='grade'
+              labelId='grade'
+              label='Grade Level'
+              MenuProps={selectMenuProps}
+            >
               <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
               <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
               <MenuItem value={'corporate_3'}>Corporate 3</MenuItem>
@@ -93,12 +111,51 @@ export default function Onboard() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
-          <Typography>Input one or many skills to help us with matching. Click on a skill to remove it from the list.</Typography>
+        <Grid item xs={12} mt={2}>
+          <Typography>Input one or many skills that you have. Click on a skill to remove it from the list.</Typography>
         </Grid>
-        <SkillSet onChange={(skills) => console.log}/>
+        <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
+        <Grid item xs={12} mt={2}>
+          <Typography>Input one or many skills you would like mentorship on. Click on a skill to remove it from the list.</Typography>
+        </Grid>
+        <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
         <Grid item xs={9} />
-        <Grid item xs={3}>
+        <Grid item xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id='grade'>Mentor Grade</InputLabel>
+            <Select
+              onChange={(e) => {
+                const target = e.target as HTMLInputElement;
+                if (typeof target.value === 'string') {
+                  setMentorGrades([target.value]);
+                } else {
+                  setMentorGrades(target.value);
+                }
+              }}
+              value={mentorGrades}
+              multiple
+              name='mentorGrades'
+              labelId='mentor-grade'
+              label='Mentor Grade'
+              MenuProps={selectMenuProps}
+            >
+              <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
+              <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
+              <MenuItem value={'corporate_3'}>Corporate 3</MenuItem>
+              <MenuItem value={'corporate_4'}>Corporate 4</MenuItem>
+              <MenuItem value={'corporate_5'}>Corporate 5</MenuItem>
+              <MenuItem value={'corporate_6'}>Corporate 6</MenuItem>
+              <MenuItem value={'technical_1'}>Technical 1</MenuItem>
+              <MenuItem value={'technical_2'}>Technical 2</MenuItem>
+              <MenuItem value={'technical_3'}>Technical 3</MenuItem>
+              <MenuItem value={'technical_4'}>Technical 4</MenuItem>
+              <MenuItem value={'technical_5'}>Technical 5</MenuItem>
+              <MenuItem value={'technical_6'}>Technical 6</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={9}s/>
+        <Grid item xs={3} mb={2}>
           <Button
             type='submit'
             variant='contained'
