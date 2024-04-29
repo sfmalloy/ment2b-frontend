@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (cookies.size > 0 && !cookies.get('session')) {
+    if (cookies.size > 0 && !cookies.get('ment2b_session')) {
       console.log('hi there')
     } else {
       router.replace('/login');
