@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Grid, Paper, TextField, Typography } from '@mui/material';
 
 export default function Login() {
   return (
@@ -16,7 +16,6 @@ export default function Login() {
         <form onSubmit={(e) => {
           e.preventDefault();
           const uid = e.currentTarget.uid.value;
-          // TODO: call the API
           console.log(uid);
         }}>
           <TextField
@@ -24,15 +23,6 @@ export default function Login() {
             label='Username'
             name='uid'
             autoComplete='off'
-            fullWidth
-            sx={{mb: 2}}
-          />
-          <TextField
-            variant='filled'
-            label='Password'
-            name='pwd'
-            autoComplete='off'
-            type='password'
             fullWidth
           />
         </form>

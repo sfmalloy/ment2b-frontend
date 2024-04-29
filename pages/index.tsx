@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -19,8 +18,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (cookies.size > 0 && !cookies.get('uid')) {
-      console.log('hi there');
+    if (cookies.size > 0 && !cookies.get('session')) {
+      console.log('hi there')
     } else {
       router.replace('/login');
     }
