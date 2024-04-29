@@ -1,4 +1,5 @@
-import { Box, Button, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Select, TextField, Typography } from '@mui/material';
+import SkillSet from '@/components/SkillSet';
+import { Box, Button, FormControl, Grid, InputLabel, List, ListItem, ListItemButton, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 export default function Onboard() {
@@ -93,43 +94,9 @@ export default function Onboard() {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Typography>Input one or many skills to help us with matching.</Typography>
+          <Typography>Input one or many skills to help us with matching. Click on a skill to remove it from the list.</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <TextField
-            fullWidth
-            label='Skills'
-            autoComplete='off'
-            name='skill'
-            onKeyDown={(e) => {
-              if (e.key.toLowerCase() === 'enter') {
-                const target = e.target as HTMLInputElement;
-                if (!skills.includes(target.value)) {
-                  setSkills([target.value, ...skills]);
-                  target.value = '';
-                }
-              }
-            }}
-          />
-        </Grid>
-        <Grid item xs={8}>
-          <Box border={1} borderRadius={1} p={1} height={200} overflow={'auto'}>
-            {skills.length > 0 ? (
-              <List>
-                {skills.map((e) => (
-                  <ListItem>
-                    {e}
-                  </ListItem>
-                ))}
-              </List> 
-            )
-            : (
-              <List>
-                <ListItem>No skills to display...</ListItem>
-              </List> 
-            )}
-          </Box>
-        </Grid>
+        <SkillSet onChange={(skills) => console.log}/>
         <Grid item xs={9} />
         <Grid item xs={3}>
           <Button
