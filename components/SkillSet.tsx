@@ -1,18 +1,20 @@
-import { Box, Grid, List, ListItem, ListItemButton, TextField } from '@mui/material';
-import { useState } from 'react';
+import { Box, Button, Grid, List, ListItem, ListItemButton, TextField } from '@mui/material';
+import { useRef, useState } from 'react';
 
 type SkillSetProps = {
   onChange: (skills: string[]) => void;
 }
 
-export default function SkillSet({ onChange }: SkillSetProps) {
+export function SkillSet({ onChange }: SkillSetProps) {
   const [skills, setSkills] = useState<string[]>([]);
   const [textboxValue, setTextboxValue] = useState<string>('');
+  const ref = useRef<HTMLInputElement>();
 
   return (
     <>
       <Grid item xs={4}>
         <TextField
+          inputRef={ref}
           fullWidth
           value={textboxValue}
           label='Skills'
@@ -21,10 +23,10 @@ export default function SkillSet({ onChange }: SkillSetProps) {
             const target = e.target as HTMLInputElement;
             if (e.key.toLowerCase() === 'enter') {
               if (!skills.includes(target.value)) {
+                e.preventDefault();
                 setSkills([target.value, ...skills]);
-              } else {
-
               }
+              setTextboxValue('');
             }
           }}
           onInput={(e) => {
@@ -32,6 +34,19 @@ export default function SkillSet({ onChange }: SkillSetProps) {
             setTextboxValue(target.value);
           }}
         />
+        <Button
+          fullWidth
+          variant='contained'
+          sx={{ mt: 1 }}
+          onClick={() => {
+            if (ref.current) {
+              setSkills([ref.current.value, ...skills]);
+              setTextboxValue('');
+            }
+          }}
+        >
+          Add
+        </Button>
       </Grid>
       <Grid item xs={8}>
         <Box border={1} borderRadius={1} p={1} height={200} overflow={'auto'}>
