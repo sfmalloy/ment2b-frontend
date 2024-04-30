@@ -8,7 +8,7 @@ type SimpleRadioGroupProps = {
   id: string;
 }
 
-export default function SimpleRadioGroup(props: SimpleRadioGroupProps) {
+export function SimpleRadioGroup(props: SimpleRadioGroupProps) {
   return (
     <Grid item xs={props.xs}>
       <FormControl required>

@@ -5,7 +5,7 @@ type SkillSetProps = {
   onChange: (skills: string[]) => void;
 }
 
-export default function SkillSet({ onChange }: SkillSetProps) {
+export function SkillSet({ onChange }: SkillSetProps) {
   const [skills, setSkills] = useState<string[]>([]);
   const [textboxValue, setTextboxValue] = useState<string>('');
   const ref = useRef<HTMLInputElement>();

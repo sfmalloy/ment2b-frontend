@@ -1,6 +1,5 @@
-import SimpleRadioGroup from '@/components/SimpleRadioGroup';
-import SkillSet from '@/components/SkillSet';
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import { SkillSet, SimpleRadioGroup } from '@/components';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 const selectMenuProps = {
@@ -146,20 +145,6 @@ export default function Onboard() {
           <Typography>Input one or many skills that you have. Click on a skill to remove it from the list.</Typography>
         </Grid>
         <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
-        {/* <Grid item xs={3}>
-          <FormControl required>
-            <FormLabel id='open-to-mentor-label'>Are you open to being mentored?</FormLabel>
-            <RadioGroup
-              aria-labelledby='open-to-mentor-label'
-              defaultValue=''
-              name='openToMentor'
-              row
-            >
-              <FormControlLabel value={true} control={<Radio onInput={() => setOpenToBeMentored(true)} />} label='Yes' />
-              <FormControlLabel value={false} control={<Radio onInput={() => setOpenToBeMentored(false)} />} label='No' />
-            </RadioGroup>
-          </FormControl>
-        </Grid> */}
         <SimpleRadioGroup
           question='Are you open to being mentored?'
           onChange={(value) => setOpenToBeMentored(value)}
@@ -212,30 +197,14 @@ export default function Onboard() {
             </Grid>
           </>
         )}
-        {/* <Grid item xs={3}>
-          <FormControl required>
-            <FormLabel id='open-to-mentor-label'>Are you open to being a mentor?</FormLabel>
-            <RadioGroup
-              aria-labelledby='open-to-mentor-label'
-              defaultValue=''
-              name='openToMentor'
-              row
-            >
-              <FormControlLabel value={true} control={<Radio onInput={() => setOpenToMentor(true)} />} label='Yes' />
-              <FormControlLabel value={false} control={<Radio onInput={() => setOpenToMentor(false)} />} label='No' />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={3} mb={2}>
-        </Grid> */}
         <SimpleRadioGroup
           question='Are you open to being a mentor?'
           onChange={(value) => setOpenToMentor(value)}
           xs={12}
-          id='open-to-mentored'
+          id='open-to-mentor'
           name='openToMentor'
         />
-        <Grid item xs={9}/>
+        <Grid item xs={9} />
         <Grid item xs={3} mb={4}>
           <Button
             type='submit'
