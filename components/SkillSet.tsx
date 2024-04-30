@@ -37,7 +37,7 @@ export function SkillSet({ onChange }: SkillSetProps) {
         <Button
           fullWidth
           variant='contained'
-          sx={{mt: 1}}
+          sx={{ mt: 1 }}
           onClick={() => {
             if (ref.current) {
               setSkills([ref.current.value, ...skills]);
