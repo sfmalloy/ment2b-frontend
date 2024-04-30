@@ -177,8 +177,8 @@ export default function Onboard() {
               name='openToMentor'
               row
             >
-              <FormControlLabel value={true} control={<Radio />} label='Yes' />
-              <FormControlLabel value={false} control={<Radio />} label='No' />
+              <FormControlLabel value={true} control={<Radio onInput={() => setOpenToMentor(true)} />} label='Yes' />
+              <FormControlLabel value={false} control={<Radio onInput={() => setOpenToMentor(false)} />} label='No' />
             </RadioGroup>
           </FormControl>
         </Grid>
