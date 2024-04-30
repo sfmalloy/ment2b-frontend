@@ -41,7 +41,7 @@ export default function Onboard() {
         open_to_be_mentored: openToBeMentored
       };
 
-      fetch('http://localhost:3000/signup', {
+      fetch('http://localhost:8080/signup', {
         method: 'POST',
         body: JSON.stringify(req)
       }).then(() => {
