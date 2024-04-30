@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Button, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { red } from '@mui/material/colors';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -11,6 +11,7 @@ export default function Login() {
 
   return (
     <Paper
+      variant='outlined'
       sx={{
         position: 'absolute',
         left: '50%',
@@ -24,24 +25,43 @@ export default function Login() {
           <Typography variant='h4'>Login</Typography>
         </Grid>
         <Grid item>
-          {error && <Paper variant='outlined' sx={{ background: red[300] }}><ErrorOutlineIcon /> {error}</Paper>}
+          {error && (
+            <>
+              <Paper
+                variant='outlined'
+                sx={{
+                  backgroundColor: 'error.light',
+                  p: 1
+                }}
+              >
+                <Stack alignItems={'center'} direction={'row'} gap={1} justifyContent={'center'}>
+                  <ErrorOutlineIcon />
+                  <Typography>{error}</Typography>
+                </Stack>
+              </Paper>
+            </>
+          )}
         </Grid>
         <Grid item>
           <form onSubmit={(e) => {
             e.preventDefault();
+            setError('');
             const uid = e.currentTarget.uid.value;
             fetch('http://localhost:8080/login', {
               credentials: 'include',
               headers: {
                 'uid': uid
               }
-            }).then((res) => {
-              return res.text();
+            }).then(async (res) => {
+              if (!res.ok) {
+                const text = await res.json();
+                setError(text.detail);
+              } else {
+                router.replace('/profile');
+              }
             }).catch((err) => {
               console.log(err);
               setError(err);
-            }).then(() => {
-              router.replace('/');
             });
           }}>
             <TextField

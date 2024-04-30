@@ -1,7 +1,7 @@
 import { SkillSet, SimpleRadioGroup } from '@/components';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const selectMenuProps = {
   slotProps: {
@@ -21,6 +21,23 @@ export default function Onboard() {
   const [bioLength, setBioLength] = useState(0);
   const [openToBeMentored, setOpenToBeMentored] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    let loading = false;
+    fetch('http://localhost:8080/auth', {
+      credentials: 'include'
+    }).then((res) => {
+      if (!loading) {
+        if (res.ok) {
+          router.replace('/profile');
+        }
+      }
+    });
+
+    return () => {
+      loading = true;
+    }
+  }, []);
 
   return (
     <form onSubmit={(e) => {
