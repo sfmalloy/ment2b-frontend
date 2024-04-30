@@ -16,7 +16,7 @@ export default function Home() {
         if (res.status === 401) {
           router.replace('/login');
         } else if (res.status === 200) {
-          console.log('not done yet :)');
+          // TODO redirect to user profile
         } else {
           console.error('error occurred, check API logs');
         }

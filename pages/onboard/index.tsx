@@ -1,5 +1,6 @@
 import { SkillSet, SimpleRadioGroup } from '@/components';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const selectMenuProps = {
@@ -19,6 +20,7 @@ export default function Onboard() {
   const [openToMentor, setOpenToMentor] = useState(false);
   const [bioLength, setBioLength] = useState(0);
   const [openToBeMentored, setOpenToBeMentored] = useState(false);
+  const router = useRouter();
 
   return (
     <form onSubmit={(e) => {
@@ -38,6 +40,13 @@ export default function Onboard() {
         open_to_mentor: openToMentor,
         open_to_be_mentored: openToBeMentored
       };
+
+      fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        body: JSON.stringify(req)
+      }).then(() => {
+        router.replace('/login');
+      });
     }}>
       <Grid container mt={1} spacing={1} alignItems={'top'}>
         <Grid item xs={12}>
