@@ -1,4 +1,4 @@
-import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { AppBar, Container, CssBaseline, ThemeProvider, Typography, createTheme } from '@mui/material';
 import type { AppProps } from "next/app";
 
 const theme = createTheme({
@@ -11,6 +11,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <AppBar position='sticky' sx={{p: 1}}>
+        <Typography variant='h3'>ment2b</Typography>
+      </AppBar>
       <Container>
         <Component {...pageProps} />
       </Container>
