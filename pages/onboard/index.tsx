@@ -1,5 +1,6 @@
+import SimpleRadioGroup from '@/components/SimpleRadioGroup';
 import SkillSet from '@/components/SkillSet';
-import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import { Button, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 const selectMenuProps = {
@@ -17,6 +18,7 @@ export default function Onboard() {
   const [mentorGrades, setMentorGrades] = useState<string[]>([]);
   const [openToMentor, setOpenToMentor] = useState(false);
   const [bioLength, setBioLength] = useState(0);
+  const [openToBeMentored, setOpenToBeMentored] = useState(false);
 
   return (
     <form onSubmit={(e) => {
@@ -77,7 +79,7 @@ export default function Onboard() {
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
-            <InputLabel id='subdivision'>Subdivision</InputLabel>
+            <InputLabel id='subdivision' required>Subdivision</InputLabel>
             <Select
               name='subdiv'
               labelId='subdivision'
@@ -86,7 +88,7 @@ export default function Onboard() {
               defaultValue={''}
               required
             >
-              <MenuItem value={'RETAIL'}>RETAIL</MenuItem>
+              <MenuItem value={'Personal Investor'}>Personal Investor</MenuItem>
               <MenuItem value={'GIFS'}>GIFS</MenuItem>
               <MenuItem value={'INST'}>INST</MenuItem>
               <MenuItem value={'CDAO'}>CDAO</MenuItem>
@@ -102,7 +104,7 @@ export default function Onboard() {
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
-            <InputLabel id='grade'>Grade Level</InputLabel>
+            <InputLabel id='grade' required>Grade Level</InputLabel>
             <Select
               name='grade'
               labelId='grade'
@@ -144,46 +146,73 @@ export default function Onboard() {
           <Typography>Input one or many skills that you have. Click on a skill to remove it from the list.</Typography>
         </Grid>
         <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
-        <Grid item xs={12} mt={2}>
-          <Typography>Input one or many skills you would like mentorship on. Click on a skill to remove it from the list.</Typography>
-        </Grid>
-        <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
-        <Grid item xs={9} />
-        <Grid item xs={9}>
-          <FormControl fullWidth>
-            <InputLabel id='grade'>Mentor Grade</InputLabel>
-            <Select
-              onChange={(e) => {
-                const target = e.target as HTMLInputElement;
-                if (typeof target.value === 'string') {
-                  setMentorGrades([target.value]);
-                } else {
-                  setMentorGrades(target.value);
-                }
-              }}
-              value={mentorGrades}
-              multiple
-              name='mentorGrades'
-              labelId='mentor-grade'
-              label='Mentor Grade'
-              MenuProps={selectMenuProps}
+        {/* <Grid item xs={3}>
+          <FormControl required>
+            <FormLabel id='open-to-mentor-label'>Are you open to being mentored?</FormLabel>
+            <RadioGroup
+              aria-labelledby='open-to-mentor-label'
+              defaultValue=''
+              name='openToMentor'
+              row
             >
-              <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
-              <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
-              <MenuItem value={'corporate_3'}>Corporate 3</MenuItem>
-              <MenuItem value={'corporate_4'}>Corporate 4</MenuItem>
-              <MenuItem value={'corporate_5'}>Corporate 5</MenuItem>
-              <MenuItem value={'corporate_6'}>Corporate 6</MenuItem>
-              <MenuItem value={'technical_1'}>Technical 1</MenuItem>
-              <MenuItem value={'technical_2'}>Technical 2</MenuItem>
-              <MenuItem value={'technical_3'}>Technical 3</MenuItem>
-              <MenuItem value={'technical_4'}>Technical 4</MenuItem>
-              <MenuItem value={'technical_5'}>Technical 5</MenuItem>
-              <MenuItem value={'technical_6'}>Technical 6</MenuItem>
-            </Select>
+              <FormControlLabel value={true} control={<Radio onInput={() => setOpenToBeMentored(true)} />} label='Yes' />
+              <FormControlLabel value={false} control={<Radio onInput={() => setOpenToBeMentored(false)} />} label='No' />
+            </RadioGroup>
           </FormControl>
-        </Grid>
-        <Grid item xs={3}>
+        </Grid> */}
+        <SimpleRadioGroup
+          question='Are you open to being mentored?'
+          onChange={(value) => setOpenToBeMentored(value)}
+          xs={12}
+          id='open-to-be-mentored'
+          name='openToBeMentored'
+        />
+        {openToBeMentored && (
+          <>
+            <Grid item xs={12} mt={2}>
+              <Typography>Input one or many skills you would like mentorship on. Click on a skill to remove it from the list.</Typography>
+            </Grid>
+            <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
+            <Grid item xs={12} mt={2}>
+              <Typography>Select what grade levels you want your mentors to be at.</Typography>
+            </Grid>
+            <Grid item xs={9}>
+              <FormControl fullWidth>
+                <InputLabel id='grade'>Mentor Grades</InputLabel>
+                <Select
+                  onChange={(e) => {
+                    const target = e.target as HTMLInputElement;
+                    if (typeof target.value === 'string') {
+                      setMentorGrades([target.value]);
+                    } else {
+                      setMentorGrades(target.value);
+                    }
+                  }}
+                  value={mentorGrades}
+                  multiple
+                  name='mentorGrades'
+                  labelId='mentor-grade'
+                  label='Mentor Grade'
+                  MenuProps={selectMenuProps}
+                >
+                  <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
+                  <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
+                  <MenuItem value={'corporate_3'}>Corporate 3</MenuItem>
+                  <MenuItem value={'corporate_4'}>Corporate 4</MenuItem>
+                  <MenuItem value={'corporate_5'}>Corporate 5</MenuItem>
+                  <MenuItem value={'corporate_6'}>Corporate 6</MenuItem>
+                  <MenuItem value={'technical_1'}>Technical 1</MenuItem>
+                  <MenuItem value={'technical_2'}>Technical 2</MenuItem>
+                  <MenuItem value={'technical_3'}>Technical 3</MenuItem>
+                  <MenuItem value={'technical_4'}>Technical 4</MenuItem>
+                  <MenuItem value={'technical_5'}>Technical 5</MenuItem>
+                  <MenuItem value={'technical_6'}>Technical 6</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </>
+        )}
+        {/* <Grid item xs={3}>
           <FormControl required>
             <FormLabel id='open-to-mentor-label'>Are you open to being a mentor?</FormLabel>
             <RadioGroup
@@ -198,6 +227,16 @@ export default function Onboard() {
           </FormControl>
         </Grid>
         <Grid item xs={3} mb={2}>
+        </Grid> */}
+        <SimpleRadioGroup
+          question='Are you open to being a mentor?'
+          onChange={(value) => setOpenToMentor(value)}
+          xs={12}
+          id='open-to-mentored'
+          name='openToMentor'
+        />
+        <Grid item xs={9}/>
+        <Grid item xs={3} mb={4}>
           <Button
             type='submit'
             variant='contained'
