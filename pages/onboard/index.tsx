@@ -16,6 +16,7 @@ export default function Onboard() {
   const [skills, setSkills] = useState<string[]>([]);
   const [mentorGrades, setMentorGrades] = useState<string[]>([]);
   const [openToMentor, setOpenToMentor] = useState(false);
+  const [bioLength, setBioLength] = useState(0);
 
   return (
     <form onSubmit={(e) => {
@@ -124,6 +125,20 @@ export default function Onboard() {
               <MenuItem value={'technical_6'}>Technical 6</MenuItem>
             </Select>
           </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography mt={2}>Tell us a bit about yourself! ({bioLength}/500)</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            fullWidth
+            required
+            rows={4}
+            onChange={(e) => setBioLength(e.target.value.length)}
+            inputProps={{ maxLength: 500 }}
+            label='About Me'
+          />
         </Grid>
         <Grid item xs={12} mt={2}>
           <Typography>Input one or many skills that you have. Click on a skill to remove it from the list.</Typography>
