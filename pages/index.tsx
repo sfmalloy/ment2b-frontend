@@ -4,26 +4,30 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [cookies, setCookies] = useState<Map<string, string>>(new Map());
+  const [loadingCookies, setLoadingCookies] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (!cookies) {
-      console.log('yo')
+    if (cookies.size === 0) {
       setCookies(new Map(
         document.cookie.split('; ').map(elem => {
           const [key, value] = elem.split('=');
           return [key, value];
-        })));
+        }
+      )));
+      setLoadingCookies(false);
     }
   }, []);
 
   useEffect(() => {
-    if (cookies.size > 0 && !cookies.get('ment2b_session') || cookies.size === 0) {
-      router.replace('/login');
-    } else {
-      console.log('not done yet :)');
+    if (!loadingCookies) {
+      if (!cookies.get('ment2b_session') || cookies.size === 0) {
+        router.replace('/login');
+      } else {
+        console.log('not done yet :)');
+      }
     }
-  }, [cookies]);
+  }, [loadingCookies]);
 
   return (
     <>

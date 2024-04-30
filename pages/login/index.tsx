@@ -1,6 +1,13 @@
 import { Grid, Paper, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { red } from '@mui/material/colors';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const [error, setError] = useState('');
+  const router = useRouter();
+
   return (
     <Paper
       sx={{
@@ -13,10 +20,23 @@ export default function Login() {
     >
       <Grid container gap={2} alignItems={'center'} direction={'column'}>
         <Typography variant='h4'>Login</Typography>
+        {error && <Paper variant='outlined' sx={{ background: red[300] }}><ErrorOutlineIcon /> {error}</Paper> }
         <form onSubmit={(e) => {
           e.preventDefault();
           const uid = e.currentTarget.uid.value;
-          console.log(uid);
+          fetch('http://localhost:8080/login', {
+            credentials: 'include',
+            headers: {
+              'uid': uid
+            }
+          }).then((res) => {
+            return res.text();
+          }).catch((err) => {
+            console.log(err);
+            setError(err);
+          }).then(() => {
+            router.replace('/');
+          });
         }}>
           <TextField
             variant='filled'
