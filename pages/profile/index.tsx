@@ -1,13 +1,13 @@
-import { Box, Grid, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material'
+import { Box, Grid, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography, Stack } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import * as React from 'react'
 
 function Profile(userInfo: any) {
     
-    const [skills, showSkills] = React.useState(true);
-    const [dSkills, showDSkills] = React.useState(true)
-    const [grades, showGrades ] = React.useState(true)
+    const [skills, showSkills] = React.useState(false);
+    const [dSkills, showDSkills] = React.useState(false)
+    const [grades, showGrades ] = React.useState(false)
 
     const handleSkillsClick = () => {
         showSkills(!skills);
@@ -23,14 +23,18 @@ function Profile(userInfo: any) {
     const skillsList = ["skill1","skill2"];
     const gradesList = ["grade1"];
 
+    // const dSkillsList = userInfo.desiredSkills;
+    // const skillsList = userInfo.skills;
+    // const gradesList = userInfo.grades;
+
     return (
         <div>
             <Typography variant="h1" component="h2">
                 Profile
             </Typography>
             <React.Fragment>
-                <Box sx={{ flexGrow: 1, maxWidth: 752}}>
-                    <Grid container spacing={2}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                             Personal Info
                         </Typography>
@@ -103,8 +107,28 @@ function Profile(userInfo: any) {
                                 </List>
                             </Collapse>
                         </List>
-                    </Grid>    
-                </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Box sx={{ width: '100%' }}>
+                            <Stack spacing={2}>
+                                <List
+                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                                aria-labelledby='nested-list-subheader'
+                                subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
+
+                                </List>
+                                <List
+                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                                aria-labelledby='nested-list-subheader'
+                                subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
+
+                                </List>
+                            </Stack>
+                        </Box>
+                    </Grid>
+                </Grid>    
             </React.Fragment>
         </div>
     )
