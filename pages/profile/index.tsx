@@ -19,15 +19,15 @@ function Profile(userInfo: any) {
         showGrades(!grades);
     }
 
-    const dSkillsList = ["yes","no","something"];
-    const skillsList = ["skill1","skill2"];
-    const gradesList = ["grade1"];
+    const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
+    const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
+    const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
     // const dSkillsList = userInfo.desiredSkills;
     // const skillsList = userInfo.skills;
     // const gradesList = userInfo.grades;
 
-    const mentorList = ["Sean Malloy","Viwing Zheng"]
-    const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
     // const mentorList = userInfo.mentorList;
     // const menteeList = userInfo.menteeList;
 
@@ -45,7 +45,7 @@ function Profile(userInfo: any) {
                             Personal Info
                         </Typography>
                         <List
-                            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                            sx={{ width:'100%', maxWidth:360, bgcolor: 'background.paper' }}
                             component="nav"
                             aria-labelledby='nested-list-subheader'
                             subheader={ <ListSubheader component="div" id="nested-list-subheader"></ListSubheader> }>
@@ -78,7 +78,7 @@ function Profile(userInfo: any) {
                                 {skills ? <ExpandLess /> :<ExpandMore />}
                             </ListItemButton>
                             <Collapse in={skills} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
+                                <List sx={{ maxHeight:200, overflow:'auto' }} component="div" disablePadding>
                                     {skillsList.map((value: string) => 
                                         <ListItem key={value} sx={{ pl: 6 }}>
                                             <ListItemText primary={value}/>
@@ -91,7 +91,7 @@ function Profile(userInfo: any) {
                                 {dSkills ? <ExpandLess /> :<ExpandMore />}
                             </ListItemButton>
                             <Collapse in={dSkills} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
+                                <List sx={{ maxHeight:200, overflow:'auto' }} component="div" disablePadding>
                                     {dSkillsList.map((value: string) => 
                                         <ListItem key={value} sx={{ pl: 6 }}>
                                             <ListItemText primary={value}/>
@@ -104,7 +104,7 @@ function Profile(userInfo: any) {
                                 {grades ? <ExpandLess /> :<ExpandMore />}
                             </ListItemButton>
                             <Collapse in={grades} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
+                                <List sx={{ maxHeight:200, overflow:'auto' }} component="div" disablePadding>
                                     {gradesList.map((value: string) => 
                                         <ListItem key={value} sx={{ pl: 6 }}>
                                             <ListItemText primary={value}/>
@@ -115,15 +115,15 @@ function Profile(userInfo: any) {
                         </List>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Box sx={{ width: '100%', hieght:400, maxWidth: 360, bgcolor: 'background.paper' }}>
+                        <Box sx={{ width:'100%', hieght:400, maxWidth:360, bgcolor:'background.paper' }}>
                             <Stack spacing={2}>
                                 { isMentor && (
                                     <List
-                                        sx={{ width: '100%', maxWidth: 360, maxHeight:'100%', bgcolor: 'background.paper', overflow:'auto'}}
+                                        sx={{ width:'100%', maxWidth:360, maxHeight:'100%', bgcolor:'background.paper', overflow:'auto' }}
                                         component="nav"
                                         aria-labelledby='nested-list-subheader'
                                         subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
-                                        <List component="div" disablePadding>
+                                        <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
                                         {mentorList.map((value: string) => 
                                             <ListItem key={value} sx={{ pl: 6 }}>
                                                 <ListItemText primary={value}/>
@@ -133,11 +133,11 @@ function Profile(userInfo: any) {
                                     </List>)
                                 }
                                 <List
-                                    sx={{  width: '100%', maxWidth: 360, maxHeight:'100%', bgcolor: 'background.paper', overflow:'auto'}}
+                                    sx={{  width:'100%', maxWidth:360, maxHeight:'100%', bgcolor:'background.paper', overflow:'auto' }}
                                     component="nav"
                                     aria-labelledby='nested-list-subheader'
                                     subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
-                                    <List component="div" disablePadding>
+                                    <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
                                     {menteeList.map((value: string) => 
                                         <ListItem key={value} sx={{ pl: 6 }}>
                                             <ListItemText primary={value}/>
