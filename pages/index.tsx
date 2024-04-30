@@ -8,26 +8,25 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (cookies.size === 0) {
-      setCookies(new Map(
-        document.cookie.split('; ').map(elem => {
-          const [key, value] = elem.split('=');
-          return [key, value];
+    let loading = false;
+    fetch('http://localhost:8080/auth', {
+      credentials: 'include'
+    }).then((res) => {
+      if (!loading) {
+        if (res.status === 401) {
+          router.replace('/login');
+        } else if (res.status === 200) {
+          console.log('not done yet :)');
+        } else {
+          console.error('error occurred, check API logs');
         }
-      )));
-      setLoadingCookies(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!loadingCookies) {
-      if (!cookies.get('ment2b_session') || cookies.size === 0) {
-        router.replace('/login');
-      } else {
-        console.log('not done yet :)');
       }
-    }
-  }, [loadingCookies]);
+    });
+
+    return () => {
+      loading = true;
+    };
+  }, []);
 
   return (
     <>

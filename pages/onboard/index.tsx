@@ -14,6 +14,7 @@ const selectMenuProps = {
 
 export default function Onboard() {
   const [skills, setSkills] = useState<string[]>([]);
+  const [mentorSkills, setMentorSkills] = useState<string[]>([]);
   const [mentorGrades, setMentorGrades] = useState<string[]>([]);
   const [openToMentor, setOpenToMentor] = useState(false);
   const [bioLength, setBioLength] = useState(0);
@@ -22,7 +23,21 @@ export default function Onboard() {
   return (
     <form onSubmit={(e) => {
       e.preventDefault();
-      console.log('wow submitting already?')
+      // this is a hackathon I don't have time for TypeScript
+      const target = e.target as any;
+      const req = {
+        uid: target.uid.value,
+        first_name: target.firstName.value,
+        last_name: target.lastName.value,
+        email: target.email.value,
+        position: target.position.value,
+        sub_division: target.subdiv.value,
+        skills: skills,
+        mentorSkills: mentorSkills,
+        profile_description: target.profileDescription.value,
+        open_to_mentor: openToMentor,
+        open_to_be_mentored: openToBeMentored
+      };
     }}>
       <Grid container mt={1} spacing={1} alignItems={'top'}>
         <Grid item xs={12}>
@@ -47,6 +62,7 @@ export default function Onboard() {
             autoComplete='off'
             name='uid'
             required
+            inputProps={{ maxLength: 4, minLength: 4 }}
           />
         </Grid>
         <Grid item xs={6}>
@@ -54,7 +70,7 @@ export default function Onboard() {
             fullWidth
             label='First Name'
             autoComplete='off'
-            name='first_name'
+            name='firstName'
             required
           />
         </Grid>
@@ -63,7 +79,7 @@ export default function Onboard() {
             fullWidth
             label='Last Name'
             autoComplete='off'
-            name='last_name'
+            name='lastName'
             required
           />
         </Grid>
@@ -139,12 +155,15 @@ export default function Onboard() {
             onChange={(e) => setBioLength(e.target.value.length)}
             inputProps={{ maxLength: 500 }}
             label='About Me'
+            name='profileDescription'
           />
         </Grid>
         <Grid item xs={12} mt={2}>
           <Typography>Input one or many skills that you have. Click on a skill to remove it from the list.</Typography>
         </Grid>
-        <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
+        <SkillSet onChange={(currSkills) => {
+          setSkills(currSkills)
+        }} />
         <SimpleRadioGroup
           question='Are you open to being mentored?'
           onChange={(value) => setOpenToBeMentored(value)}
@@ -157,7 +176,7 @@ export default function Onboard() {
             <Grid item xs={12} mt={2}>
               <Typography>Input one or many skills you would like mentorship on. Click on a skill to remove it from the list.</Typography>
             </Grid>
-            <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
+            <SkillSet onChange={(currSkills) => setMentorSkills(currSkills)} />
             <Grid item xs={12} mt={2}>
               <Typography>Select what grade levels you want your mentors to be at.</Typography>
             </Grid>

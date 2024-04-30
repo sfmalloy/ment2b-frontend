@@ -10,6 +10,18 @@ export function SkillSet({ onChange }: SkillSetProps) {
   const [textboxValue, setTextboxValue] = useState<string>('');
   const ref = useRef<HTMLInputElement>();
 
+  const addSkill = (e: any, value: string, preventDefault: boolean = true) => {
+    if (!skills.includes(value)) {
+      if (preventDefault) {
+        e.preventDefault();
+      }
+      const newSkills = [value, ...skills];
+      setSkills(newSkills);
+      onChange(newSkills);
+    }
+    setTextboxValue('');
+  }
+
   return (
     <>
       <Grid item xs={4}>
@@ -22,11 +34,7 @@ export function SkillSet({ onChange }: SkillSetProps) {
           onKeyDown={(e) => {
             const target = e.target as HTMLInputElement;
             if (e.key.toLowerCase() === 'enter') {
-              if (!skills.includes(target.value)) {
-                e.preventDefault();
-                setSkills([target.value, ...skills]);
-              }
-              setTextboxValue('');
+              addSkill(e, target.value);
             }
           }}
           onInput={(e) => {
@@ -38,10 +46,9 @@ export function SkillSet({ onChange }: SkillSetProps) {
           fullWidth
           variant='contained'
           sx={{ mt: 1 }}
-          onClick={() => {
+          onClick={(e) => {
             if (ref.current) {
-              setSkills([ref.current.value, ...skills]);
-              setTextboxValue('');
+              addSkill(e, ref.current.value, false);
             }
           }}
         >
@@ -58,8 +65,10 @@ export function SkillSet({ onChange }: SkillSetProps) {
                   const idx = skillsCopy.findIndex((val) => val === e);
                   const start = skillsCopy.slice(0, idx);
                   const end = skillsCopy.slice(idx + 1);
-                  setSkills([...start, ...end]);
-                  onChange(skills);
+
+                  const newSkills = [...start, ...end];
+                  setSkills(newSkills);
+                  onChange(newSkills);
                 }}>
                   {e}
                 </ListItemButton>
