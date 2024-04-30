@@ -109,21 +109,33 @@ function Profile(userInfo: any) {
                         </List>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Box sx={{ width: '100%' }}>
+                        <Box sx={{ width: '100%', hieght:400, maxWidth: 360, bgcolor: 'background.paper' }}>
                             <Stack spacing={2}>
                                 <List
-                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                                component="nav"
-                                aria-labelledby='nested-list-subheader'
-                                subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
-
+                                    sx={{ width: '100%', maxWidth: 360, maxHeight:'50%', bgcolor: 'background.paper', overflow:'auto'}}
+                                    component="nav"
+                                    aria-labelledby='nested-list-subheader'
+                                    subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
+                                    <List component="div" disablePadding>
+                                    {gradesList.map((value: string) => 
+                                        <ListItem key={value} sx={{ pl: 6 }}>
+                                            <ListItemText primary={value}/>
+                                        </ListItem>
+                                    )}
+                                </List>
                                 </List>
                                 <List
-                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                                component="nav"
-                                aria-labelledby='nested-list-subheader'
-                                subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
-
+                                    sx={{  width: '100%', maxWidth: 360, maxHeight:'50%', bgcolor: 'background.paper', overflow:'auto'}}
+                                    component="nav"
+                                    aria-labelledby='nested-list-subheader'
+                                    subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
+                                    <List component="div" disablePadding>
+                                    {gradesList.map((value: string) => 
+                                        <ListItem key={value} sx={{ pl: 6 }}>
+                                            <ListItemText primary={value}/>
+                                        </ListItem>
+                                    )}
+                                </List>
                                 </List>
                             </Stack>
                         </Box>
