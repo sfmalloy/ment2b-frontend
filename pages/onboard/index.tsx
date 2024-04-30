@@ -1,5 +1,5 @@
 import SkillSet from '@/components/SkillSet';
-import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 const selectMenuProps = {
@@ -35,6 +35,7 @@ export default function Onboard() {
             label='Email'
             autoComplete='off'
             name='email'
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -43,6 +44,7 @@ export default function Onboard() {
             label='Username'
             autoComplete='off'
             name='uid'
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -51,6 +53,7 @@ export default function Onboard() {
             label='First Name'
             autoComplete='off'
             name='first_name'
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -59,6 +62,7 @@ export default function Onboard() {
             label='Last Name'
             autoComplete='off'
             name='last_name'
+            required
           />
         </Grid>
         <Grid item xs={4}>
@@ -67,6 +71,7 @@ export default function Onboard() {
             label='Position'
             autoComplete='off'
             name='position'
+            required
           />
         </Grid>
         <Grid item xs={4}>
@@ -78,6 +83,7 @@ export default function Onboard() {
               label='Subdivision'
               MenuProps={selectMenuProps}
               defaultValue={''}
+              required
             >
               <MenuItem value={'RETAIL'}>RETAIL</MenuItem>
               <MenuItem value={'GIFS'}>GIFS</MenuItem>
@@ -102,6 +108,7 @@ export default function Onboard() {
               label='Grade Level'
               MenuProps={selectMenuProps}
               defaultValue={''}
+              required
             >
               <MenuItem value={'corporate_1'}>Corporate 1</MenuItem>
               <MenuItem value={'corporate_2'}>Corporate 2</MenuItem>
@@ -127,7 +134,7 @@ export default function Onboard() {
         </Grid>
         <SkillSet onChange={(currSkills) => setSkills(currSkills)} />
         <Grid item xs={9} />
-        <Grid item xs={12}>
+        <Grid item xs={9}>
           <FormControl fullWidth>
             <InputLabel id='grade'>Mentor Grade</InputLabel>
             <Select
@@ -161,17 +168,18 @@ export default function Onboard() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={9}>
-          <FormControl>
-            <FormControlLabel
+        <Grid item xs={3}>
+          <FormControl required>
+            <FormLabel id='open-to-mentor-label'>Are you open to being a mentor?</FormLabel>
+            <RadioGroup
+              aria-labelledby='open-to-mentor-label'
+              defaultValue=''
               name='openToMentor'
-              control={
-                <Checkbox
-                  onChange={(e) => setOpenToMentor(e.target.checked)}
-                />
-              }
-              label='Are you open to being a mentor?'
-            />
+              row
+            >
+              <FormControlLabel value={true} control={<Radio />} label='Yes' />
+              <FormControlLabel value={false} control={<Radio />} label='No' />
+            </RadioGroup>
           </FormControl>
         </Grid>
         <Grid item xs={3} mb={2}>
