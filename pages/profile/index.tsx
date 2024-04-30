@@ -22,11 +22,17 @@ function Profile(userInfo: any) {
     const dSkillsList = ["yes","no","something"];
     const skillsList = ["skill1","skill2"];
     const gradesList = ["grade1"];
-
     // const dSkillsList = userInfo.desiredSkills;
     // const skillsList = userInfo.skills;
     // const gradesList = userInfo.grades;
 
+    const mentorList = ["Sean Malloy","Viwing Zheng"]
+    const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    // const mentorList = userInfo.mentorList;
+    // const menteeList = userInfo.menteeList;
+
+    const isMentor = true;
+    // const isMentor = userInfo.isMentor;
     return (
         <div>
             <Typography variant="h1" component="h2">
@@ -111,31 +117,33 @@ function Profile(userInfo: any) {
                     <Grid item xs={12} sm={6}>
                         <Box sx={{ width: '100%', hieght:400, maxWidth: 360, bgcolor: 'background.paper' }}>
                             <Stack spacing={2}>
+                                { isMentor && (
+                                    <List
+                                        sx={{ width: '100%', maxWidth: 360, maxHeight:'100%', bgcolor: 'background.paper', overflow:'auto'}}
+                                        component="nav"
+                                        aria-labelledby='nested-list-subheader'
+                                        subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
+                                        <List component="div" disablePadding>
+                                        {mentorList.map((value: string) => 
+                                            <ListItem key={value} sx={{ pl: 6 }}>
+                                                <ListItemText primary={value}/>
+                                            </ListItem>
+                                        )}
+                                        </List>
+                                    </List>)
+                                }
                                 <List
-                                    sx={{ width: '100%', maxWidth: 360, maxHeight:'50%', bgcolor: 'background.paper', overflow:'auto'}}
-                                    component="nav"
-                                    aria-labelledby='nested-list-subheader'
-                                    subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
-                                    <List component="div" disablePadding>
-                                    {gradesList.map((value: string) => 
-                                        <ListItem key={value} sx={{ pl: 6 }}>
-                                            <ListItemText primary={value}/>
-                                        </ListItem>
-                                    )}
-                                </List>
-                                </List>
-                                <List
-                                    sx={{  width: '100%', maxWidth: 360, maxHeight:'50%', bgcolor: 'background.paper', overflow:'auto'}}
+                                    sx={{  width: '100%', maxWidth: 360, maxHeight:'100%', bgcolor: 'background.paper', overflow:'auto'}}
                                     component="nav"
                                     aria-labelledby='nested-list-subheader'
                                     subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
                                     <List component="div" disablePadding>
-                                    {gradesList.map((value: string) => 
+                                    {menteeList.map((value: string) => 
                                         <ListItem key={value} sx={{ pl: 6 }}>
                                             <ListItemText primary={value}/>
                                         </ListItem>
                                     )}
-                                </List>
+                                    </List>
                                 </List>
                             </Stack>
                         </Box>
