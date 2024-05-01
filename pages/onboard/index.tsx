@@ -25,7 +25,7 @@ export default function Onboard() {
   useEffect(() => {
     let loading = false;
     fetch('http://localhost:8080/auth', {
-      credentials: 'include'
+      credentials: 'include',
     }).then((res) => {
       if (!loading) {
         if (res.ok) {
@@ -49,6 +49,7 @@ export default function Onboard() {
         first_name: target.firstName.value,
         last_name: target.lastName.value,
         email: target.email.value,
+        grade: target.grade.value,
         position: target.position.value,
         sub_division: target.subdiv.value,
         skills: skills,
@@ -61,7 +62,10 @@ export default function Onboard() {
 
       fetch('http://localhost:8080/signup', {
         method: 'POST',
-        body: JSON.stringify(req)
+        body: JSON.stringify(req),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }).then(() => {
         router.replace('/login');
       });
