@@ -5,11 +5,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 
 // export const getServerSideProps = async () => {
-//     const res = await fetch('http://localhost:8080/user', {
+//     const res = await fetch('http://localhost:8911/user', {
 //         credentials: 'include'
 //     })
 
-//     const ments = await fetch('http://localhost:8080/match', {
+//     const ments = await fetch('http://localhost:8911/match', {
 //         credentials: 'include'
 //     })
 
@@ -45,7 +45,7 @@ function Profile() {
 
     React.useEffect(() => {
         let loading = false;
-        fetch('http://localhost:8080/user', {
+        fetch('http://localhost:8911/user', {
             credentials: 'include'
         }).then((res) => {
             if (!loading) {
@@ -57,7 +57,7 @@ function Profile() {
             console.log(json);
         });
 
-        fetch('http://localhost:8080/match', {
+        fetch('http://localhost:8911/match', {
             credentials: 'include'
         }).then((res) => {
             if (!loading) {

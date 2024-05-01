@@ -24,7 +24,7 @@ export default function Onboard() {
 
   useEffect(() => {
     let loading = false;
-    fetch('http://localhost:8080/auth', {
+    fetch('http://localhost:8911/auth', {
       credentials: 'include',
     }).then((res) => {
       if (!loading) {
@@ -60,7 +60,7 @@ export default function Onboard() {
         open_to_be_mentored: openToBeMentored
       };
 
-      fetch('http://localhost:8080/signup', {
+      fetch('http://localhost:8911/signup', {
         method: 'POST',
         body: JSON.stringify(req),
         headers: {

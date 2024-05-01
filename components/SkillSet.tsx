@@ -56,7 +56,7 @@ export function SkillSet({ onChange }: SkillSetProps) {
                 const skill = e.target.value;
                 if (skill.length > 0) {
                   const timeoutId = setTimeout(() => {
-                    fetch('http://localhost:8080/skills?' + new URLSearchParams({ skillSubstring: skill }))
+                    fetch('http://localhost:8911/skills?' + new URLSearchParams({ skillSubstring: skill }))
                       .then((res) => res.json())
                       .then((json) => setAutocompleteValues(json));
                   }, 100);

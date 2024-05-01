@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     let loading = false;
-    fetch('http://localhost:8080/auth', {
+    fetch('http://localhost:8911/auth', {
       credentials: 'include'
     }).then((res) => {
       if (!loading) {
