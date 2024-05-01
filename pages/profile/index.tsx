@@ -3,6 +3,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
+import { useRouter } from 'next/router'
 
 function Profile() {
   const [skills, showSkills] = React.useState(false);
@@ -10,6 +11,7 @@ function Profile() {
   const [grades, showGrades] = React.useState(false)
   const [userInfo, setUserInfo] = React.useState<any>(undefined);
   const [mentorInfo, setMentorInfo] = React.useState<any>(undefined);
+  const router = useRouter();
 
   const handleSkillsClick = () => {
     showSkills(!skills);
@@ -61,6 +63,17 @@ function Profile() {
           <Grid item xs={4}></Grid>
           <Grid item xs={4} justifyContent='right'>
             <Avatar sx={{ width: 125, height: 125 }} alt="Avatar"><AccountCircleIcon fontSize='large' /></Avatar>
+          </Grid>
+          <Grid item xs={2}>
+            <Button onClick={() => {
+              fetch('http://localhost:8911/logout', {
+                credentials: 'include'
+              }).then(() => {
+                router.replace('/');
+              });
+            }}>
+              Logout
+            </Button>
           </Grid>
         </Grid>
         <Divider />
@@ -136,7 +149,7 @@ function Profile() {
                   sx={{ width: '100%', maxWidth: 360, maxHeight: 'auto', bgcolor: 'background.paper', overflow: 'auto' }}
                   component="nav"
                   aria-labelledby='nested-list-subheader'
-                  subheader={<ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader>}>
+                  subheader={<ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader>}>
                   <List sx={{ maxHeight: 300, overflow: 'auto' }} component="div" disablePadding>
                     {mentorInfo.map((value: string) =>
                       <ListItem key={value} sx={{ pl: 6 }}>
