@@ -1,10 +1,8 @@
 import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const [cookies, setCookies] = useState<Map<string, string>>(new Map());
-  const [loadingCookies, setLoadingCookies] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,7 +14,7 @@ export default function Home() {
         if (res.status === 401) {
           router.replace('/login');
         } else if (res.status === 200) {
-          // TODO redirect to user profile
+          router.replace('/profile');
         } else {
           console.error('error occurred, check API logs');
         }

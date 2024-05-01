@@ -1,6 +1,5 @@
 import { Button, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { red } from '@mui/material/colors';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
