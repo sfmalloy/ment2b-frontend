@@ -52,7 +52,8 @@ export default function Onboard() {
         position: target.position.value,
         sub_division: target.subdiv.value,
         skills: skills,
-        mentorSkills: mentorSkills,
+        desired_skills: mentorSkills,
+        desired_grades: mentorGrades,
         profile_description: target.profileDescription.value,
         open_to_mentor: openToMentor,
         open_to_be_mentored: openToBeMentored
