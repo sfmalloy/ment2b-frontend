@@ -1,26 +1,26 @@
-import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider } from '@mui/material'
+import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider, Avatar, Stack } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 import { GetServerSideProps } from 'next'
 
-// export const getServerSideProps = async () => {
-//     const res = await fetch('http://localhost:8080/user', {
-//         credentials: 'include'
-//     })
+export const getServerSideProps = async () => {
+    const res = await fetch('http://localhost:8080/user', {
+        credentials: 'include'
+    })
 
-//     const ments = await fetch('http//localhost:8080/match', {
-//         credentials: 'include'
-//     })
+    const ments = await fetch('http//localhost:8080/match', {
+        credentials: 'include'
+    })
 
-//     const userInfo = await res.json();
-//     const mentorInfo = await ments.json();
+    const userInfo = await res.json();
+    const mentorInfo = await ments.json();
 
-//     return {
-//         props: { userInfo: userInfo, mentorInfo: mentorInfo }
-//     }
-// }
+    return {
+        props: { userInfo: userInfo, mentorInfo: mentorInfo }
+    }
+}
 
 
 function makeName({first="Some", last="Person"}: {first?:string,last?:string} = {}): string {
@@ -43,37 +43,33 @@ function Profile(userInfo: any, mentorInfo: any) {
         showGrades(!grades);
     }
 
-    const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
-    const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
-    const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
-    // const dSkillsList = userInfo.desired_skills;
-    // const skillsList = userInfo.skills;
-    // const gradesList = userInfo.desired_grades;
+    // const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
+    // const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
+    // const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
+    
+    const dSkillsList = userInfo.desired_skills;
+    const skillsList = userInfo.skills;
+    const gradesList = userInfo.desired_grades;
 
-    const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
-    const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
-    // const mentorList = mentorInfo.mentor_list;
-    // const menteeList = mentorInfo.mentee_list;
+    // const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    // const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    
+    const mentorList = mentorInfo.mentor_list;
+    const menteeList = mentorInfo.mentee_list;
 
-    const isOpenToMentor = true;
-    const isOpenToBeMentored = true;
-    // const isOpenToMentor = userInfo.open_to_mentor;
-    // const isOpenToBeMentored = userInfo.open_to_be_mentored;
+    // const isOpenToMentor = true;
+    // const isOpenToBeMentored = true;
+    const isOpenToMentor = userInfo.open_to_mentor;
+    const isOpenToBeMentored = userInfo.open_to_be_mentored;
 
     return (
         <div>
-            <Grid container spacing={6}>
-                <Grid item xs={6} justifyContent="left">
+            <Grid container spacing={3}>
+                <Grid item xs={4} justifyContent="left">
                     <Typography variant="h3" component="h3" gutterBottom>
                         { makeName((userInfo.first_name, userInfo.last_name)) }
                     </Typography>
-                </Grid>
-                <Grid item xs={6} justifyContent='right'>
-                    <AccountCircleIcon fontSize='large'/>
-                </Grid>
-            </Grid>
-            <Grid container direction='row' justifyContent='left' alignItems='center' spacing={2}>
-                <Grid item xs='auto'>
+                    <Grid item xs='auto'>
                     <Typography variant="subtitle1">
                         { 
                             // userInfo.position
@@ -88,6 +84,13 @@ function Profile(userInfo: any, mentorInfo: any) {
                             "BRO"
                         }
                     </Typography>
+                </Grid>
+                </Grid>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4} justifyContent='right'>
+                       
+                    <Avatar sx={{ width:125, height:125 }} alt="Avatar"><AccountCircleIcon fontSize='large'/></Avatar>
+                     
                 </Grid>
             </Grid>
             <Divider/>
@@ -111,8 +114,8 @@ function Profile(userInfo: any, mentorInfo: any) {
                                 { userInfo.grade }
                             </ListItem>
                             <ListItem>
-                                <ListItemText primary="Subdivision" />
-                                { userInfo.sub_division }
+                                <ListItemText primary="Description" />
+                                { userInfo.profile_description }
                             </ListItem>
                             <ListItemButton onClick={handleSkillsClick}>
                                 <ListItemText primary="Skills" />
