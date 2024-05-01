@@ -5,22 +5,22 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 import { GetServerSideProps } from 'next'
 
-// export const getServerSideProps = async () => {
-//     const res = await fetch('http://localhost:8080/user', {
-//         credentials: 'include'
-//     })
+export const getServerSideProps = async () => {
+    const res = await fetch('http://localhost:8080/user', {
+        credentials: 'include'
+    })
 
-//     const ments = await fetch('http//localhost:8080/match', {
-//         credentials: 'include'
-//     })
+    const ments = await fetch('http//localhost:8080/match', {
+        credentials: 'include'
+    })
 
-//     const userInfo = await res.json();
-//     const mentorInfo = await ments.json();
+    const userInfo = await res.json();
+    const mentorInfo = await ments.json();
 
-//     return {
-//         props: { userInfo: userInfo, mentorInfo: mentorInfo }
-//     }
-// }
+    return {
+        props: { userInfo: userInfo, mentorInfo: mentorInfo }
+    }
+}
 
 
 function makeName({first="Some", last="Person"}: {first?:string,last?:string} = {}): string {
@@ -43,22 +43,24 @@ function Profile(userInfo: any, mentorInfo: any) {
         showGrades(!grades);
     }
 
-    const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
-    const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
-    const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
-    // const dSkillsList = userInfo.desired_skills;
-    // const skillsList = userInfo.skills;
-    // const gradesList = userInfo.desired_grades;
+    // const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
+    // const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
+    // const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
+    
+    const dSkillsList = userInfo.desired_skills;
+    const skillsList = userInfo.skills;
+    const gradesList = userInfo.desired_grades;
 
-    const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
-    const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
-    // const mentorList = mentorInfo.mentor_list;
-    // const menteeList = mentorInfo.mentee_list;
+    // const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    // const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
+    
+    const mentorList = mentorInfo.mentor_list;
+    const menteeList = mentorInfo.mentee_list;
 
-    const isOpenToMentor = true;
-    const isOpenToBeMentored = true;
-    // const isOpenToMentor = userInfo.open_to_mentor;
-    // const isOpenToBeMentored = userInfo.open_to_be_mentored;
+    // const isOpenToMentor = true;
+    // const isOpenToBeMentored = true;
+    const isOpenToMentor = userInfo.open_to_mentor;
+    const isOpenToBeMentored = userInfo.open_to_be_mentored;
 
     return (
         <div>
