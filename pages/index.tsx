@@ -1,29 +1,30 @@
 import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const [cookies, setCookies] = useState<Map<string, string>>(new Map());
   const router = useRouter();
 
   useEffect(() => {
-    if (!cookies) {
-      console.log('yo')
-      setCookies(new Map(
-        document.cookie.split('; ').map(elem => {
-          const [key, value] = elem.split('=');
-          return [key, value];
-        })));
-    }
-  }, []);
+    let loading = false;
+    fetch('http://localhost:8080/auth', {
+      credentials: 'include'
+    }).then((res) => {
+      if (!loading) {
+        if (res.status === 401) {
+          router.replace('/login');
+        } else if (res.status === 200) {
+          router.replace('/profile');
+        } else {
+          console.error('error occurred, check API logs');
+        }
+      }
+    });
 
-  useEffect(() => {
-    if (cookies.size > 0 && !cookies.get('ment2b_session') || cookies.size === 0) {
-      router.replace('/login');
-    } else {
-      console.log('not done yet :)');
-    }
-  }, [cookies]);
+    return () => {
+      loading = true;
+    };
+  }, []);
 
   return (
     <>
