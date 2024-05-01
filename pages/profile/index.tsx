@@ -4,13 +4,14 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 import { GetServerSideProps } from 'next'
+import { log } from 'console'
 
 export const getServerSideProps = async () => {
     const res = await fetch('http://localhost:8080/user', {
         credentials: 'include'
     })
 
-    const ments = await fetch('http//localhost:8080/match', {
+    const ments = await fetch('http://localhost:8080/match', {
         credentials: 'include'
     })
 
@@ -28,6 +29,8 @@ function makeName({first="Some", last="Person"}: {first?:string,last?:string} = 
 }
 
 function Profile(userInfo: any, mentorInfo: any) {
+
+    
     
     const [skills, showSkills] = React.useState(false);
     const [dSkills, showDSkills] = React.useState(false)
