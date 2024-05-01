@@ -4,24 +4,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 
-// export const getServerSideProps = async () => {
-//     const res = await fetch('http://localhost:8080/user', {
-//         credentials: 'include'
-//     })
-
-//     const ments = await fetch('http://localhost:8080/match', {
-//         credentials: 'include'
-//     })
-
-//     const userInfo = await res.json();
-//     const mentorInfo = await ments.json();
-
-//     return {
-//         props: { userInfo: userInfo, mentorInfo: mentorInfo }
-//     }
-// }
-
-
 function makeName({first="Some", last="Person"}: {first?:string,last?:string} = {}): string {
     return first + ' ' + last;
 }
@@ -30,8 +12,8 @@ function Profile() {
     const [skills, showSkills] = React.useState(false);
     const [dSkills, showDSkills] = React.useState(false)
     const [grades, showGrades ] = React.useState(false)
-    const [userInfo, setUserInfo] = React.useState<any>({});
-    const [mentorInfo, setMentorInfo] = React.useState<any>({});
+    const [userInfo, setUserInfo] = React.useState<any>(undefined);
+    const [mentorInfo, setMentorInfo] = React.useState<any>(undefined);
 
     const handleSkillsClick = () => {
         showSkills(!skills);
