@@ -1,9 +1,33 @@
-import { Box, Grid, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography, Stack } from '@mui/material'
+import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
+import { GetServerSideProps } from 'next'
 
-function Profile(userInfo: any) {
+// export const getServerSideProps = async () => {
+//     const res = await fetch('http://localhost:8080/user', {
+//         credentials: 'include'
+//     })
+
+//     const ments = await fetch('http//localhost:8080/match', {
+//         credentials: 'include'
+//     })
+
+//     const userInfo = await res.json();
+//     const mentorInfo = await ments.json();
+
+//     return {
+//         props: { userInfo: userInfo, mentorInfo: mentorInfo }
+//     }
+// }
+
+
+function makeName({first="Some", last="Person"}: {first?:string,last?:string} = {}): string {
+    return first + ' ' + last;
+}
+
+function Profile(userInfo: any, mentorInfo: any) {
     
     const [skills, showSkills] = React.useState(false);
     const [dSkills, showDSkills] = React.useState(false)
@@ -22,24 +46,53 @@ function Profile(userInfo: any) {
     const dSkillsList = ["yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something","yes","no","something"];
     const skillsList = ["skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2","skill1","skill2"];
     const gradesList = ["grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no","grade1","no"];
-    // const dSkillsList = userInfo.desiredSkills;
+    // const dSkillsList = userInfo.desired_skills;
     // const skillsList = userInfo.skills;
-    // const gradesList = userInfo.grades;
+    // const gradesList = userInfo.desired_grades;
 
     const mentorList = ["Sean Malloy","Viwing Zheng","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
     const menteeList = ["Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni","Shreya Sanjiv", "Matt Fossett", "Allen Zhen", "Richard Ni"]
-    // const mentorList = userInfo.mentorList;
-    // const menteeList = userInfo.menteeList;
+    // const mentorList = mentorInfo.mentor_list;
+    // const menteeList = mentorInfo.mentee_list;
 
-    const isMentor = true;
-    // const isMentor = userInfo.isMentor;
+    const isOpenToMentor = true;
+    const isOpenToBeMentored = true;
+    // const isOpenToMentor = userInfo.open_to_mentor;
+    // const isOpenToBeMentored = userInfo.open_to_be_mentored;
+
     return (
         <div>
-            <Typography variant="h1" component="h2">
-                Profile
-            </Typography>
+            <Grid container spacing={6}>
+                <Grid item xs={6} justifyContent="left">
+                    <Typography variant="h3" component="h3" gutterBottom>
+                        { makeName((userInfo.first_name, userInfo.last_name)) }
+                    </Typography>
+                </Grid>
+                <Grid item xs={6} justifyContent='right'>
+                    <AccountCircleIcon fontSize='large'/>
+                </Grid>
+            </Grid>
+            <Grid container direction='row' justifyContent='left' alignItems='center' spacing={2}>
+                <Grid item xs='auto'>
+                    <Typography variant="subtitle1">
+                        { 
+                            // userInfo.position
+                            "Developer" 
+                        }
+                    </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant='subtitle2'>
+                        {
+                            // userInfo.sub_division
+                            "BRO"
+                        }
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Divider/>
             <React.Fragment>
-                <Grid container spacing={2}>
+                <Grid container justifyContent="center" spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                             Personal Info
@@ -50,28 +103,16 @@ function Profile(userInfo: any) {
                             aria-labelledby='nested-list-subheader'
                             subheader={ <ListSubheader component="div" id="nested-list-subheader"></ListSubheader> }>
                             <ListItem>
-                                <ListItemText primary="First Name" />
-                                { userInfo.firstName }
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary="Last Name" />
-                                { userInfo.lastName }
-                            </ListItem>
-                            <ListItem>
                                 <ListItemText primary="Email" />
                                 { userInfo.email }
                             </ListItem>
                             <ListItem>
                                 <ListItemText primary="Grade" />
-                                { userInfo.Grade }
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary="Position" />
-                                { userInfo.position }
+                                { userInfo.grade }
                             </ListItem>
                             <ListItem>
                                 <ListItemText primary="Subdivision" />
-                                { userInfo.subDivision }
+                                { userInfo.sub_division }
                             </ListItem>
                             <ListItemButton onClick={handleSkillsClick}>
                                 <ListItemText primary="Skills" />
@@ -114,40 +155,36 @@ function Profile(userInfo: any) {
                             </Collapse>
                         </List>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Box sx={{ width:'100%', hieght:400, maxWidth:360, bgcolor:'background.paper' }}>
-                            <Stack spacing={2}>
-                                { isMentor && (
-                                    <List
-                                        sx={{ width:'100%', maxWidth:360, maxHeight:'100%', bgcolor:'background.paper', overflow:'auto' }}
-                                        component="nav"
-                                        aria-labelledby='nested-list-subheader'
-                                        subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
-                                        <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
-                                        {mentorList.map((value: string) => 
-                                            <ListItem key={value} sx={{ pl: 6 }}>
-                                                <ListItemText primary={value}/>
-                                            </ListItem>
-                                        )}
-                                        </List>
-                                    </List>)
-                                }
-                                <List
-                                    sx={{  width:'100%', maxWidth:360, maxHeight:'100%', bgcolor:'background.paper', overflow:'auto' }}
-                                    component="nav"
-                                    aria-labelledby='nested-list-subheader'
-                                    subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
-                                    <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
-                                    {menteeList.map((value: string) => 
-                                        <ListItem key={value} sx={{ pl: 6 }}>
-                                            <ListItemText primary={value}/>
-                                        </ListItem>
-                                    )}
-                                    </List>
-                                </List>
-                            </Stack>
-                        </Box>
-                    </Grid>
+                    { isOpenToMentor && (
+                        <Grid item xs={6} sm={3}>
+                        <List
+                            sx={{ width:'100%', maxWidth:360, maxHeight:'auto', bgcolor:'background.paper', overflow:'auto' }}
+                            component="nav"
+                            aria-labelledby='nested-list-subheader'
+                            subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentor Matches</ListSubheader> }>
+                            <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
+                            {menteeList.map((value: string) => 
+                                <ListItem key={value} sx={{ pl: 6 }}>
+                                    <ListItemText primary={value}/>
+                                </ListItem>
+                            )}
+                            </List>
+                        </List></Grid>)}
+                    { isOpenToBeMentored && ( 
+                    <Grid item xs={6} sm={3}>
+                        <List
+                        sx={{  width:'100%', maxWidth:360, maxHeight:'auto', bgcolor:'background.paper', overflow:'auto' }}
+                        component="nav"
+                        aria-labelledby='nested-list-subheader'
+                        subheader={ <ListSubheader component="div" id="nested-list-subheader">Mentee Matches</ListSubheader> }>
+                        <List sx={{ maxHeight:300, overflow:'auto' }} component="div" disablePadding>
+                        {mentorList.map((value: string) => 
+                            <ListItem key={value} sx={{ pl: 6 }}>
+                                <ListItemText primary={value}/>
+                            </ListItem>
+                        )}
+                        </List>
+                    </List></Grid>)}
                 </Grid>    
             </React.Fragment>
         </div>
