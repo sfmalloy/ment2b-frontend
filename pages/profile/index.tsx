@@ -1,4 +1,4 @@
-import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider } from '@mui/material'
+import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider, Avatar, Stack } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
@@ -62,18 +62,12 @@ function Profile(userInfo: any, mentorInfo: any) {
 
     return (
         <div>
-            <Grid container spacing={6}>
-                <Grid item xs={6} justifyContent="left">
+            <Grid container spacing={3}>
+                <Grid item xs={4} justifyContent="left">
                     <Typography variant="h3" component="h3" gutterBottom>
                         { makeName((userInfo.first_name, userInfo.last_name)) }
                     </Typography>
-                </Grid>
-                <Grid item xs={6} justifyContent='right'>
-                    <AccountCircleIcon fontSize='large'/>
-                </Grid>
-            </Grid>
-            <Grid container direction='row' justifyContent='left' alignItems='center' spacing={2}>
-                <Grid item xs='auto'>
+                    <Grid item xs='auto'>
                     <Typography variant="subtitle1">
                         { 
                             // userInfo.position
@@ -88,6 +82,13 @@ function Profile(userInfo: any, mentorInfo: any) {
                             "BRO"
                         }
                     </Typography>
+                </Grid>
+                </Grid>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4} justifyContent='right'>
+                       
+                    <Avatar sx={{ width:125, height:125 }} alt="Avatar"><AccountCircleIcon fontSize='large'/></Avatar>
+                     
                 </Grid>
             </Grid>
             <Divider/>
@@ -111,8 +112,8 @@ function Profile(userInfo: any, mentorInfo: any) {
                                 { userInfo.grade }
                             </ListItem>
                             <ListItem>
-                                <ListItemText primary="Subdivision" />
-                                { userInfo.sub_division }
+                                <ListItemText primary="Description" />
+                                { userInfo.profile_description }
                             </ListItem>
                             <ListItemButton onClick={handleSkillsClick}>
                                 <ListItemText primary="Skills" />
