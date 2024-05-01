@@ -49,16 +49,12 @@ function Profile() {
             </Typography>
             <Grid item xs='auto'>
               <Typography variant="subtitle1">
-                {
-                  userInfo.position
-                }
+                Position: {userInfo.position}
               </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant='subtitle2'>
-                {
-                  userInfo.sub_division
-                }
+                Subdivision: {userInfo.sub_division}
               </Typography>
             </Grid>
           </Grid>
