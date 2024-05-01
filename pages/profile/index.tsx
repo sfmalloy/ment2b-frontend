@@ -1,6 +1,7 @@
 import { Grid, Collapse, List, ListItem, ListItemButton, ListItemText, ListSubheader, Typography, Divider } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import * as React from 'react'
 import { GetServerSideProps } from 'next'
 
@@ -61,11 +62,14 @@ function Profile(userInfo: any, mentorInfo: any) {
 
     return (
         <div>
-            <Grid container justifyContent="left" alignItems="center" spacing='auto'>
-                <Grid item xs={6}>
-                <Typography variant="h3" component="h3" gutterBottom>
-                    { makeName((userInfo.first_name, userInfo.last_name)) }
-                </Typography>
+            <Grid container spacing={6}>
+                <Grid item xs={6} justifyContent="left">
+                    <Typography variant="h3" component="h3" gutterBottom>
+                        { makeName((userInfo.first_name, userInfo.last_name)) }
+                    </Typography>
+                </Grid>
+                <Grid item xs={6} justifyContent='right'>
+                    <AccountCircleIcon fontSize='large'/>
                 </Grid>
             </Grid>
             <Grid container direction='row' justifyContent='left' alignItems='center' spacing={2}>
@@ -78,7 +82,6 @@ function Profile(userInfo: any, mentorInfo: any) {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    
                     <Typography variant='subtitle2'>
                         {
                             // userInfo.sub_division
